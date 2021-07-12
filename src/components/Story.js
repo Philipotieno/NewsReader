@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { mapTime } from '../mappers/mapTime';
 import { getStory } from '../services/hnApi';
 import {
   StoryMeta,
@@ -15,19 +16,18 @@ const Story = ({ storyId }) => {
   }, []);
 
   return story && story.url ? (
-    <StoryWrapper data-tested="story">
+    <StoryWrapper data-testid="story">
       <StoryTitle>
         <a href={story.url}>{story.title}</a>
       </StoryTitle>
       <StoryMeta>
-        <span  data-testid="story-by">
-          <StoryMetaElement color="#000">By:</StoryMetaElement>
+        <span data-testid="story-by">
+          <StoryMetaElement color="#000">By:</StoryMetaElement> {` `}
           {story.by}
         </span>
-        <span  data-testid="story-by">
-          <StoryMetaElement color="#000">Posted:</StoryMetaElement>
-          {``}
-          {story.time}
+        <span data-testid="story-time">
+          <StoryMetaElement color="#000">Posted:</StoryMetaElement> {` `}
+          {mapTime(story.time)}
         </span>
       </StoryMeta>
     </StoryWrapper>
